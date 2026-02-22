@@ -38,3 +38,11 @@ body{
   border-radius: 50%;
   object-position: top;
 }
+.form form{
+  width: 100%;
+  min-height: 50px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background-color: brown;
+}
