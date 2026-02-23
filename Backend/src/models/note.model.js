@@ -1,10 +1,11 @@
 const mongoose = require("mongoose")
 
-const noteSchema=  new mongoose.Schema({
-    title : String,
+const noteSchema = mongoose.Schema({
+    profileImg : String,
+    name : String,
     description : String,
-    image : String,
 })
 
-const noteModel = mongoose.model("notes",noteSchema)
+const noteModel = mongoose.model("profile",noteSchema)
+
 module.exports = noteModel

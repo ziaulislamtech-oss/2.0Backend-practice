@@ -1,41 +1,28 @@
 const express = require("express")
-const cors = require("cors")
+
 const app = express()
+const cors = require("cors")
+app.use(cors())
 const noteModel = require("./models/note.model")
 app.use(express.json())
-app.use(cors())
 
-// Post Method
-
+// App Method
 app.post("/api/notes",async(req,res)=>{
-    const {title,description,image} = req.body
-
-   const note = await noteModel.create({
-        title,description,image
+    const {profileImg,name,description} = req.body  
+    const note = await noteModel.create({
+        profileImg,name,description
     })
     res.status(201).json({
-        message : 'note created successfully',
+        message : " Note Created Successfully",
         note
     })
 })
 
-// Get Method 
-
-app.get("/api/notes",async (req,res)=>{
-    const notes = await noteModel.find()
+// Fetched Method
+app.get("/api/notes",async(req,res)=>{
+    const note = await noteModel.find()
     res.status(200).json({
-        message : "notes fetched successfully",
-        notes
-    })
-})
-
-// Delete Method 
-app.delete("/api/notes/:id",async(req,res)=>{
-    const id = req.params.id
-    const note = await noteModel.findById(id)
-    await noteModel.findByIdAndDelete(id)
-    res.status(200).json({
-        message : "note delected successfully",
+        message : "note Fetched successfully",
         note
     })
 })
@@ -43,13 +30,26 @@ app.delete("/api/notes/:id",async(req,res)=>{
 // Patch Method
 app.patch("/api/notes/:id",async(req,res)=>{
     const id = req.params.id
-    const {title,description,image} = req.body
-    const note = await noteModel.findById(id) 
-     await noteModel.findByIdAndUpdate(id,{title,description,image})
+   const {profileImg,name,description} = req.body
+   const note = await noteModel.findById(id)
+   await noteModel.findByIdAndUpdate(id,{profileImg,name,description})
+   res.status(200).json({
+    message : "note updated successfully",
+    note
+   })
+  
+})
 
+// Deleted Method 
+app.delete("/api/notes/:id",async(req,res)=>{
+    const id = req.params.id
+    const note = await noteModel.findById(id)
+    await noteModel.findByIdAndDelete(id)
     res.status(200).json({
-        message : "note updated successfully",
+        message : "Note Delected Successfully",
         note
     })
 })
+
+
 module.exports = app
