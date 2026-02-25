@@ -25,7 +25,7 @@ const App = () => {
     e.preventDefault()
     if (editId) {
       try {
-        await axios.patch(`http://localhost:3000/api/notes/${editId}`, formData)
+        await axios.patch(`/api/notes/${editId}`, formData)
         setEditId(null)
         {
           const h1 = document.querySelector('#heading')
@@ -42,7 +42,7 @@ const App = () => {
     else {
 
       try {
-        const response = await axios.post("http://localhost:3000/api/notes", formData)
+        const response = await axios.post("/api/notes", formData)
         console.log(response)
       }
       catch (error) {
@@ -61,7 +61,7 @@ const App = () => {
   }
   const fetchNotes = async () => {
     try {
-      const response = await axios.get("http://localhost:3000/api/notes")
+      const response = await axios.get("/api/notes")
       console.log(response)
       setNotes(response.data.note)
 
@@ -73,7 +73,7 @@ const App = () => {
 
   const deleteNote = async (id) => {
     try {
-      await axios.delete(`http://localhost:3000/api/notes/${id}`)
+      await axios.delete(`/api/notes/${id}`)
 
       fetchNotes()
     }
